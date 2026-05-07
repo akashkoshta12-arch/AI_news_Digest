@@ -1,0 +1,7 @@
+news_env/
+__pycache__/
+*.pyc
+.env
+news.db
+data/
+*.png
