@@ -1,4 +1,9 @@
+# requirements.txt
+
+flask
 requests
-openai
 feedparser
+groq
+python-dotenv
 schedule
+gunicorn
