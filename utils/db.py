@@ -2,7 +2,7 @@ import sqlite3
 
 DB_NAME = "news.db"
 
-# ✅ Database और Table बनाना
+# MAKE Database AND Table 
 def init_db():
     conn = sqlite3.connect(DB_NAME)
     cursor = conn.cursor()
@@ -20,12 +20,12 @@ def init_db():
     conn.commit()
     conn.close()
 
-# ✅ न्यूज़ सेव करना
+# SAVE NEWS
 def save_news(news_list):
     conn = sqlite3.connect(DB_NAME)
     cursor = conn.cursor()
     
-    # पुरानी न्यूज़ डिलीट करना
+    # REMOVE OLD NEWS
     cursor.execute("DELETE FROM news")
     
     for news in news_list:
@@ -45,7 +45,7 @@ def save_news(news_list):
     conn.commit()
     conn.close()
 
-# ✅ न्यूज़ लोड करना
+# LODIND NEWS
 def get_news():
     conn = sqlite3.connect(DB_NAME)
     cursor = conn.cursor()
@@ -70,7 +70,7 @@ def get_news():
         })
     return data
 
-# ✅ सारी न्यूज़ क्लियर करना
+# CLEAR NEWS
 def clear_news():
     conn = sqlite3.connect(DB_NAME)
     cursor = conn.cursor()
@@ -78,5 +78,5 @@ def clear_news():
     conn.commit()
     conn.close()
 
-# शुरू करने के लिए DB इनिशियलाइज करें
+# INITIALIZE DB
 init_db()
