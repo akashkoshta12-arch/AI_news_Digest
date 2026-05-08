@@ -2,14 +2,10 @@ import sqlite3
 
 DB_NAME = "news.db"
 
-
-# ✅ Create DB + Table
+# ✅ Database और Table बनाना
 def init_db():
-
     conn = sqlite3.connect(DB_NAME)
-
     cursor = conn.cursor()
-
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS news (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -21,61 +17,49 @@ def init_db():
         score INTEGER
     )
     """)
-
     conn.commit()
     conn.close()
 
-
-# ✅ Save news
+# ✅ न्यूज़ सेव करना
 def save_news(news_list):
-
     conn = sqlite3.connect(DB_NAME)
-
     cursor = conn.cursor()
-
-    # old news delete
+    
+    # पुरानी न्यूज़ डिलीट करना
     cursor.execute("DELETE FROM news")
-
+    
     for news in news_list:
-
         cursor.execute("""
-        INSERT INTO news
-        (title, content, source, link, category, score)
+        INSERT INTO news 
+        (title, content, source, link, category, score) 
         VALUES (?, ?, ?, ?, ?, ?)
         """, (
-            news["title"],
-            news["content"],
-            news["source"],
-            news["link"],
-            news["category"],
+            news["title"], 
+            news["content"], 
+            news["source"], 
+            news["link"], 
+            news["category"], 
             news["score"]
         ))
-
+    
     conn.commit()
     conn.close()
 
-
-# ✅ Load news
+# ✅ न्यूज़ लोड करना
 def get_news():
-
     conn = sqlite3.connect(DB_NAME)
-
     cursor = conn.cursor()
-
     cursor.execute("""
-    SELECT title, content, source, link, category, score
-    FROM news
+    SELECT title, content, source, link, category, score 
+    FROM news 
     ORDER BY score DESC
     """)
-
+    
     rows = cursor.fetchall()
-
     conn.close()
-
+    
     data = []
-
     for row in rows:
-
         data.append({
             "title": row[0],
             "content": row[1],
@@ -84,5 +68,15 @@ def get_news():
             "category": row[4],
             "score": row[5]
         })
-
     return data
+
+# ✅ सारी न्यूज़ क्लियर करना
+def clear_news():
+    conn = sqlite3.connect(DB_NAME)
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM news")
+    conn.commit()
+    conn.close()
+
+# शुरू करने के लिए DB इनिशियलाइज करें
+init_db()
