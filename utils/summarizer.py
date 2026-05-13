@@ -27,7 +27,7 @@ def summarize(text):
 
         result = response.choices[0].message.content
 
-        # 🔥 CLEAN OUTPUT (IMPORTANT)
+        #  CLEAN OUTPUT (IMPORTANT)
         result = result.replace("*", "").strip()
 
         return result
